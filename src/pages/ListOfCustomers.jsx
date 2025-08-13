@@ -13,13 +13,13 @@ function ListOfCustomers() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const customersRes = await fetch('http://localhost:5000/api/customers');
+        const customersRes = await fetch('https://fvl-system-backend.onrender.com/api/customers');
         const customersData = await customersRes.json();
         console.log('customersData:', customersData); // for debugging
 
         setCustomers(customersData.data); // <--- use .data here
 
-        const transactionsRes = await fetch('http://localhost:5000/api/savings');
+        const transactionsRes = await fetch('https://fvl-system-backend.onrender.com/api/savings');
         const transactionsData = await transactionsRes.json();
         setTransactions(transactionsData);
       } catch (error) {

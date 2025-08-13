@@ -15,7 +15,7 @@ function NewCustomers() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = 'http://localhost:5000/api';
+  const API_BASE_URL = 'https://fvl-system-backend.onrender.com/api';
   
   // Branch data (can be moved to backend later)
   const branches = [

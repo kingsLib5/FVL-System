@@ -28,7 +28,7 @@ function AddCustomerRecord() {
   useEffect(() => {
     async function fetchCustomers() {
       try {
-        const res = await axios.get('http://localhost:5000/api/customers');
+        const res = await axios.get('https://fvl-system-backend.onrender.com/api/customers');
         const customersArray = Array.isArray(res.data) ? res.data : (res.data.data || []);
         setCustomers(customersArray);
       } catch (err) {
@@ -42,7 +42,7 @@ function AddCustomerRecord() {
   useEffect(() => {
     async function fetchSavings() {
       try {
-        const res = await axios.get('http://localhost:5000/api/savings');
+        const res = await axios.get('https://fvl-system-backend.onrender.com/api/savings');
         const recordsArray = Array.isArray(res.data)
           ? res.data
           : res.data.data || [];
@@ -122,7 +122,7 @@ function AddCustomerRecord() {
         status: 'paid',
       };
 
-      const res = await axios.post('http://localhost:5000/api/savings', payload);
+      const res = await axios.post('https://fvl-system-backend.onrender.com/api/savings', payload);
       const savedRecord = res.data.data || res.data;
 
       // The key fix here: Attach full customer object to savedRecord so name shows immediately
@@ -176,7 +176,7 @@ function AddCustomerRecord() {
         date: editingRecordData.date,
       };
 
-      const res = await axios.put(`http://localhost:5000/api/savings/${id}`, payload);
+      const res = await axios.put(`https://fvl-system-backend.onrender.com/api/savings/${id}`, payload);
       const updatedRecord = res.data.data || res.data;
 
       // Update local records array
@@ -196,7 +196,7 @@ function AddCustomerRecord() {
     if (!window.confirm('Are you sure you want to delete this record?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/savings/${id}`);
+      await axios.delete(`https://fvl-system-backend.onrender.com/api/savings/${id}`);
       setRecords(prev => prev.filter(rec => rec._id !== id && rec.id !== id));
     } catch (err) {
       console.error('Error deleting record:', err);

@@ -19,7 +19,7 @@ function CheckCustomerRecord() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('http://localhost:5000/api/savings');
+        const response = await fetch('https://fvl-system-backend.onrender.com/api/savings');
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         const json = await response.json();
 

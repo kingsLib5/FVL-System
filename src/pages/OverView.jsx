@@ -44,7 +44,7 @@ function OverView() {
     // Fetch customers count once on mount
     const fetchTotalCustomers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/customers');
+        const res = await fetch('https://fvl-system-backend.onrender.com/api/customers');
         const data = await res.json();
         // Assuming data.data is an array of customers
         if (Array.isArray(data.data)) {
@@ -76,7 +76,7 @@ function OverView() {
     { title: 'LOC',           Icon: FaClipboardList,        path: '/fisuny-record/customers-list' },
     { title: 'Add to CR',     Icon: FaPlus,                 path: '/fisuny-record/create-record' },
     { title: 'New Customers', Icon: MdOutlineCreateNewFolder, path: '/fisuny-record/new-customers' },
-    { title: 'Branchs',       Icon: IoGitBranchOutline,     path: '/#' },
+    { title: 'Branchs',       Icon: IoGitBranchOutline,     path: '/###' },
   ];
 
   return (
