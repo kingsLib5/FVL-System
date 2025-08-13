@@ -223,7 +223,7 @@ function ListOfCustomers() {
                     </svg>
                   </button>
                 )}
-              </div>dev
+              </div>
             </div>
 
             <div className="w-full lg:w-auto flex justify-end">
