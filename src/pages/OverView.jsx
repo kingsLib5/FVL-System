@@ -18,8 +18,9 @@ function OverView() {
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [currentDay, setCurrentDay] = useState('');
+    const [totalCustomers, setTotalCustomers] = useState(0);
 
-  useEffect(() => {
+   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(
@@ -39,15 +40,35 @@ function OverView() {
 
     updateTime();
     const timerId = setInterval(updateTime, 1000);
+    
+    // Fetch customers count once on mount
+    const fetchTotalCustomers = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/customers');
+        const data = await res.json();
+        // Assuming data.data is an array of customers
+        if (Array.isArray(data.data)) {
+          setTotalCustomers(data.data.length);
+        }
+      } catch (error) {
+        console.error('Failed to fetch total customers:', error);
+      }
+    };
+
+    fetchTotalCustomers();
+
     return () => clearInterval(timerId);
   }, []);
+
 
   const iceBlue = { gradient: 'from-[#81D4FA] to-[#039BE5]' };
 
   const stats = [
-    { title: 'Total Customers', value: '2,458', change: '12.5%', Icon: HiOutlineUsers },
-    { title: 'Annual Total',   value: '₦185,240', change: '8.2%', Icon: HiOutlineCash },
-    { title: 'Monthly Total',  value: '₦24,850',  change: '5.7%', Icon: HiOutlineChartBar },
+    {
+      title: 'Total Customers',
+      value: totalCustomers.toLocaleString(), // dynamic number formatted with commas
+      Icon: HiOutlineUsers
+    },
   ];
 
   const actions = [
@@ -55,7 +76,7 @@ function OverView() {
     { title: 'LOC',           Icon: FaClipboardList,        path: '/fisuny-record/customers-list' },
     { title: 'Add to CR',     Icon: FaPlus,                 path: '/fisuny-record/create-record' },
     { title: 'New Customers', Icon: MdOutlineCreateNewFolder, path: '/fisuny-record/new-customers' },
-    { title: 'Branchs',       Icon: IoGitBranchOutline,     path: '/fisuny-record/branch' },
+    { title: 'Branchs',       Icon: IoGitBranchOutline,     path: '/#' },
   ];
 
   return (
@@ -169,6 +190,11 @@ function OverView() {
         .animation-delay-200 { animation-delay: 200ms; }
         .animation-delay-500 { animation-delay: 500ms; }
       `}</style>
+
+      {/* Footer */}
+        <footer className="mt-8 text-center text-gray-700 text-sm animate-fadeIn">
+          <p>© {new Date().getFullYear()} Customer Records System. All rights reserved.</p>
+        </footer>
     </div>
   );
 }

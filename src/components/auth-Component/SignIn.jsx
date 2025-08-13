@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios"; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSpinner } from 'react-icons/fa';
 
@@ -43,20 +44,33 @@ function SignIn() {
   }, [images.length]);
 
   const handleSubmit = async e => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    // simulate your async sign-in logic:
-    try {
-      await new Promise(res => setTimeout(res, 1500));
-      console.log('Signed in:', { email, password, rememberMe });
-      // redirect or whatever...
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+  try {
+    const { data } = await axios.post("http://localhost:5000/api/auth/login", {
+      email,
+      password,
+      rememberMe
+    });
+
+    console.log("✅ Signed in:", data);
+
+    // Example: store token if your backend sends it
+    if (data.token) {
+      localStorage.setItem("token", data.token);
     }
-  };
+
+    // Example: redirect to dashboard
+     window.location.href = "/fisuny-record";
+
+  } catch (err) {
+    console.error("❌ Login error:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <motion.div

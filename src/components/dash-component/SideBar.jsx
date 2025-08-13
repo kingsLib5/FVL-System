@@ -83,9 +83,14 @@ const Sidebar = ({ onExpand = () => {}, onCollapse = () => {} }) => {
   const toggleSidebar = () => setIsOpen((prev) => !prev);
   const closeSidebar = () => setIsOpen(false);
 
-  const handleLogout = () => {
-    closeSidebar();
-    console.log("User logged out");
+ const handleLogout = () => {
+    // Remove token from storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("user"); // if you stored user info
+
+   
+
+    // Redirect to login page
     navigate("/signin");
   };
 
@@ -98,7 +103,7 @@ const Sidebar = ({ onExpand = () => {}, onCollapse = () => {} }) => {
         { path: "new-customers", label: "New-Customers", icon: MdOutlineCreateNewFolder },
         { path: "create-record", label: "Add to CR", icon: FaPlus },
         { path: "check-record", label: "Check CR", icon: FaListCheck },
-        { path: "branch", label: "Branch", icon: IoGitBranchOutline },
+        // { path: "branch", label: "Branch", icon: IoGitBranchOutline },
 
 
 

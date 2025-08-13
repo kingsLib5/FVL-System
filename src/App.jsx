@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 // Lazy loaded components
 const SignIn = lazy(() => import('./components/auth-Component/SignIn'));
@@ -209,14 +210,16 @@ const AnimatedRoutes = () => {
           <Route path="/signin" element={<SignIn />} />
 
           {/* Dashboard Layout */}
-          <Route path="/fisuny-record" element={<Dashboard />}>              
-            <Route index element={<OverView />} />
-            <Route path="over-view" element={<OverView />} />
-            <Route path="customers-list" element={<ListOfCustomers />} />
-            <Route path="new-customers" element={<NewCustomers />} />
-            <Route path="create-record" element={<AddCustomerRecord />} />
-            <Route path="check-record" element={<CheckCustomerRecord />} />
-            <Route path="branch" element={<Branches />} />
+          <Route element={< ProtectedRoute />}>
+            <Route path="/fisuny-record" element={<Dashboard />}>
+              <Route index element={<OverView />} />
+              <Route path="over-view" element={<OverView />} />
+              <Route path="customers-list" element={<ListOfCustomers />} />
+              <Route path="new-customers" element={<NewCustomers />} />
+              <Route path="create-record" element={<AddCustomerRecord />} />
+              <Route path="check-record" element={<CheckCustomerRecord />} />
+              <Route path="branch" element={<Branches />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<PageNotFound />} />
